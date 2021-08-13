@@ -1,0 +1,57 @@
+* {
+    margin: auto
+}
+body {
+    background-color: lightgrey;
+}
+.header-section {
+    background-color: black;
+    padding: 3% 4%;
+    color: White;
+}
+.prev-search-item {
+    width: 75%;
+    font-size: 1.5;
+    padding: 8px 15px;
+    background-color: darkslategray;
+    color: white;
+    margin: 10px; 
+    border: black 3px solid;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: brown;
+}
+
+.brewery-name:hover {
+    font-style: italic;
+}
+
+
+.modal-alerts{
+    display: none;
+}
+
+.w3-container-alert-title {
+    font-style: 40px;
+}
+
+.w3-container-alert-item {
+    font-size: 25px;
+}
+.section-search input {
+    padding: 5px !important;
+    font-size: 18px !important;
+    width: 90% !important;
+    border: #f4f4f4 3px solid !important; 
+}
+
+.section-follow .fa-4x {
+    margin: 5px 10px;
+
+}
