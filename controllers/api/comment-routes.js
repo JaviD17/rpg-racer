@@ -30,10 +30,35 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/:id', (req, res) => {
+// get comment via pub_id
+router.get('/pub/:id', (req, res) => {
     Comment.findOne({
         where: {
-            id: req.params.id
+            pub_id: req.params.id
+        },
+        include: {
+            all: true,
+            nested: true
+        }
+    })
+        .then(dbCommentData => {
+            if (!dbCommentData) {
+                res.status(404).json({ message: 'No comment found with this id' });
+                return;
+            }
+            res.json(dbCommentData);
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)
+        });
+});
+
+// get comment via user_id
+router.get('/user/:id', (req, res) => {
+    Comment.findOne({
+        where: {
+            user_id: req.params.id
         },
         include: {
             all: true,
