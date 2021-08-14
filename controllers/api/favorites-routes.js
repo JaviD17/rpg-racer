@@ -29,9 +29,6 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
-        include: {
-            all: true
-        }
     })
         .then(dbFavoritesData => {
             if (!dbFavoritesData) {
