@@ -18,4 +18,8 @@ Comment.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
+Favorites.hasMany(User, {
+    foreignKey: 'user_id'
+})
+
 module.exports = { User, Favorites, Comment };
