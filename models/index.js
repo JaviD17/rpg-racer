@@ -6,7 +6,7 @@ User.hasMany(Favorites, {
     foreignKey: 'user_id'
 });
 
-Favorites.belongsToMany(User, {
+Favorites.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
@@ -17,9 +17,5 @@ User.hasMany(Comment, {
 Comment.belongsTo(User, {
     foreignKey: 'user_id'
 });
-
-Favorites.hasMany(User, {
-    foreignKey: 'user_id'
-})
 
 module.exports = { User, Favorites, Comment };
