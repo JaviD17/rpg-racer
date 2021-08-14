@@ -1,12 +1,13 @@
 {
   "name": "rpg-project",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
+    "connect-session-sequelize": "^7.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
+    "express-session": "^1.17.2",
     "mysql2": "^2.3.0",
     "sequelize": "^6.6.5"
   },
@@ -24,5 +25,7 @@
   "bugs": {
     "url": "https://github.com/JaviD17/rpg-project/issues"
   },
-  "homepage": "https://github.com/JaviD17/rpg-project#readme"
+  "homepage": "https://github.com/JaviD17/rpg-project#readme",
+  "keywords": [],
+  "description": ""
 }
