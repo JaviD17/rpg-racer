@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const homeRoutes = require('./api/home-routes.js');
+const homeRoutes = require('./home-routes.js');
 const apiRoutes = require('./api');
 const User = require('../models/User.js');
 const Comment = require('../models/Comment.js');
 const Favorite = require('../models/Favorites')
 
 router.use('/api', apiRoutes);
-router.use('/api', homeRoutes);
+router.use('/', homeRoutes);
 
 router.use('/api', apiRoutes);
 
