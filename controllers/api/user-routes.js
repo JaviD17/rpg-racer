@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Favorites } = require('../../models');
+const { User, Comment, Favorites } = require('../../models');
 
 router.get('/', (req, res) => {
     User.findAll({
@@ -18,17 +18,10 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
-        include: [
-            // To be uncommented once respective routes are done and table creation fixed
-            // {
-            //     model: Post,
-            //     attributes: ['post_text', 'pub_id', 'user_id']
-            // },
-            // {
-            //     model: Favorites,
-            //     attributes: ['pub_id']
-            // }
-        ]
+        include: {
+            all: true,
+            nested: true
+        }
     })
         .then(dbUserData => {
             if (!dbUserData) {
