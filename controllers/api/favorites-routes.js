@@ -15,28 +15,13 @@ router.post('/', (req, res) => {
         })
 })
 
-router.get('/', (req, res) => {
-    Favorites.findAll({})
-        .then(dbFavoritesData => res.json(dbFavoritesData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-
-router.get('/:id', (req, res) => {
-    Favorites.findOne({
+router.get('/user/:id', (req, res) => {
+    Favorites.findAll({
         where: {
-            id: req.params.id
-        },
+            user_id: req.params.id
+        }
     })
-        .then(dbFavoritesData => {
-            if (!dbFavoritesData) {
-                res.status(404).json({ message: 'No favorite found with this id' });
-                return;
-            }
-            res.json(dbFavoritesData);
-        })
+        .then(dbFavoritesData => res.json(dbFavoritesData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
