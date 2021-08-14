@@ -18,6 +18,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(require('./controllers/'));
+
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, function () {
     console.log('App listening on PORT ' + PORT);

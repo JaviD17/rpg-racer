@@ -5,6 +5,7 @@ const User = require('../models/User.js');
 const Comment = require('../models/Comment.js');
 const Favorite = require('../models/Favorites')
 
+router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
 
 router.use('/api', apiRoutes);
@@ -19,6 +20,10 @@ Comment.belongsTo(User, {
 
 User.hasMany(Favorite, {
     foreignKey: 'user_id'
+})
+
+router.use((req, res) => {
+    res.status(404).end();
 });
 
 module.exports = router;
