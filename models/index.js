@@ -6,7 +6,7 @@ User.hasMany(Favorites, {
     foreignKey: 'user_id'
 });
 
-Favorites.belongsTo(User, {
+Favorites.belongsToMany(User, {
     foreignKey: 'user_id'
 });
 
