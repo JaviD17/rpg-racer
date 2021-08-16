@@ -46,7 +46,14 @@ router.post('/', (req, res) => {
         password: req.body.password
     })
         .then(dbUserData => {
-            res.json(dbUserData)
+            req.session.save(() => {
+                //session variables
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+
+                res.json(dbUserData)
+            })
         })
         .catch(err => {
             console.log(err);
@@ -102,18 +109,36 @@ router.post('/login', (req, res) => {
             email: req.body.email
         }
     })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(400).json({ message: 'no user found with this email address!' });
-                return;
-            }
-            const validPassword = dbUserData.checkPassword(req.body.password);
-            if (!validPassword) {
-                res.status(400).json({ message: 'incorrect password' });
-                return;
-            }
+    .then(dbUserData => {
+        if (!dbUserData) {
+            res.status(400).json({ message: 'no user found with this email address!' });
+            return;
+        }
+        const validPassword = dbUserData.checkPassword(req.body.password);
+        if (!validPassword) {
+            res.status(400).json({ message: 'incorrect password' });
+            return;
+        }
+        req.session.save(() => {
+            // session variables
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         })
+    })
 });
+
+// logout route
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+})
 
 module.exports = router;
