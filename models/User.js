@@ -2,8 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 const argon2 = require("argon2");
 class User extends Model {
-  checkPassword(loginPw) {
-    return argon2.verify(this.password, loginPw);
+  async checkPassword(loginPw) {
+    let verifiedPassword = await argon2.verify(this.password, loginPw);
+    return verifiedPassword;
   }
 }
 
@@ -40,15 +41,20 @@ User.init(
   {
     hooks: {
       async beforeCreate(newUserData) {
+          const { username, email, password } = newUserData;
+          console.log(`THIS PASSWORD IS ${password}`);
         try {
-          const hash = await argon2.hash(newUserData);
+          let hashedPw = await argon2.hash(password);
+          return hashedPw;
         } catch (err) {
           console.log(err);
         }
       },
       async beforeUpdate(updatedUserData) {
+          const { username, email, password } = updatedUserData;
         try {
-          const hash = await argon2.hash(newUserData);
+          let hashedPw = await argon2.hash(password);
+          return hashedPw;
         } catch (err) {
           console.log(err);
         }
