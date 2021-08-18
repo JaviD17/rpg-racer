@@ -1,12 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-const { scrypt, randomFill, createCipheriv } = await import("crypto");
-
-const algorithm = "aes-192-cbc";
+const argon2 = require("argon2");
 class User extends Model {
-  // check password with method checkPassword(loginPw) { return; };
   checkPassword(loginPw) {
-    return; // bcrypt.compareSync(loginPw, this.password);
+    return argon2.verify(this.password, loginPw);
   }
 }
 
@@ -42,57 +39,19 @@ User.init(
   },
   {
     hooks: {
-      beforeCreate(newUserData) {
-        newPassword = scrypt(
-          newUserData.password,
-          "salt",
-          24,
-          (err, key) => {
-            if (err) throw err;
-
-            randomFill(new Uint8Array(16), (err, iv) => {
-              if (err) throw err;
-
-              const cipher = createCipheriv(algorithm, key, iv);
-
-              let encrypted = "";
-              cipher.setEncoding("hex");
-
-              cipher.on("data", (chunk) => (encrypted += chunk));
-              cipher.on("end", () => console.log(encrypted));
-
-              cipher.write("some clear text data");
-              cipher.end();
-            });
-          }
-        );
-        return newPassword;
+      async beforeCreate(newUserData) {
+        try {
+          const hash = await argon2.hash(newUserData);
+        } catch (err) {
+          console.log(err);
+        }
       },
       async beforeUpdate(updatedUserData) {
-        updatedPassword = scrypt(
-            updatedUserData.password,
-            "salt",
-            24,
-            (err, key) => {
-              if (err) throw err;
-  
-              randomFill(new Uint8Array(16), (err, iv) => {
-                if (err) throw err;
-  
-                const cipher = createCipheriv(algorithm, key, iv);
-  
-                let encrypted = "";
-                cipher.setEncoding("hex");
-  
-                cipher.on("data", (chunk) => (encrypted += chunk));
-                cipher.on("end", () => console.log(encrypted));
-  
-                cipher.write("some clear text data");
-                cipher.end();
-              });
-            }
-        );
-        return updatedPassword;
+        try {
+          const hash = await argon2.hash(newUserData);
+        } catch (err) {
+          console.log(err);
+        }
       },
     },
     sequelize,
