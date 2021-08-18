@@ -42,10 +42,8 @@ User.init(
   },
   {
     hooks: {
-      async beforeCreate(newUserData) {
-        // newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        // return newUserData;
-        newUserData.password = await scrypt(
+      beforeCreate(newUserData) {
+        newPassword = scrypt(
           newUserData.password,
           "salt",
           24,
@@ -57,23 +55,44 @@ User.init(
 
               const cipher = createCipheriv(algorithm, key, iv);
 
-              let encrypted = cipher.update(
-                "some clear text data",
-                "utf8",
-                "hex"
-              );
-              encrypted += cipher.final("hex");
-              console.log(encrypted);
+              let encrypted = "";
+              cipher.setEncoding("hex");
+
+              cipher.on("data", (chunk) => (encrypted += chunk));
+              cipher.on("end", () => console.log(encrypted));
+
+              cipher.write("some clear text data");
+              cipher.end();
             });
           }
         );
+        return newPassword;
       },
       async beforeUpdate(updatedUserData) {
-        updatedUserData.password = await bcrypt.hash(
-          updatedUserData.password,
-          10
+        updatedPassword = scrypt(
+            updatedUserData.password,
+            "salt",
+            24,
+            (err, key) => {
+              if (err) throw err;
+  
+              randomFill(new Uint8Array(16), (err, iv) => {
+                if (err) throw err;
+  
+                const cipher = createCipheriv(algorithm, key, iv);
+  
+                let encrypted = "";
+                cipher.setEncoding("hex");
+  
+                cipher.on("data", (chunk) => (encrypted += chunk));
+                cipher.on("end", () => console.log(encrypted));
+  
+                cipher.write("some clear text data");
+                cipher.end();
+              });
+            }
         );
-        return updatedUserData;
+        return updatedPassword;
       },
     },
     sequelize,
