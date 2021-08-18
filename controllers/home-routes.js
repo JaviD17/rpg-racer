@@ -17,4 +17,8 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/search-results/:city', (req, res) => {
+  res.render('search-results')
+})
+
 module.exports = router;
