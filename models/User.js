@@ -45,7 +45,7 @@ User.init(
           console.log(`THIS PASSWORD IS ${password}`);
         try {
           let hashedPw = await argon2.hash(password);
-          return hashedPw;
+          console.log(`THIS PASSWORD IS ${hashedPw}`);
         } catch (err) {
           console.log(err);
         }
