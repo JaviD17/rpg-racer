@@ -40,8 +40,9 @@ User.init(
   },
   {
     hooks: {
+      // it works!!! just replicate it
       async beforeCreate(newUserData) {
-          console.log(`THIS PASSWORD IS ${newUserData.password}`);
+        console.log(`THIS PASSWORD IS ${newUserData.password}`);
         try {
           newUserData.password = await argon2.hash(newUserData.password);
           console.log(`THIS PASSWORD IS ${newUserData.password}`);
@@ -51,10 +52,13 @@ User.init(
         }
       },
       async beforeUpdate(updatedUserData) {
-          let { username, email, password } = updatedUserData;
+        console.log(`THIS PASSWORD IS ${updatedUserData}`);
         try {
-          let hashedPw = await argon2.hash(password);
-          return hashedPw;
+          updatedUserData.password = await argon2.hash(
+            updatedUserData.password
+          );
+          console.log(`THIS PASSWORD IS ${updatedUserData.password}`);
+          return updatedUserData;
         } catch (err) {
           console.log(err);
         }
