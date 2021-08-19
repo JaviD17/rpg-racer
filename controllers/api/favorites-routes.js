@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { Favorites, User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
     Favorites.create({
         pub_id: req.body.pub_id,
         user_id: req.body.user_id
@@ -28,7 +29,7 @@ router.get('/user/:id', (req, res) => {
         });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
     Favorites.update(req.body, {
         indiviualHooks: true,
         where: {
@@ -48,7 +49,7 @@ router.put('/:id', (req, res) => {
         });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
     Favorites.destroy({
         where: {
             id: req.params.id
