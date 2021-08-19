@@ -21,4 +21,8 @@ router.get('/search-results/:city', (req, res) => {
   res.render('search-results')
 })
 
+router.get('/pub/:id', (req,res) => {
+  res.render('pub')
+})
+
 module.exports = router;
