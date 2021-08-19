@@ -4,10 +4,10 @@ const argon2 = require("argon2");
 class User extends Model {
   async checkPassword(loginPw) {
     try {
-      if (await argon2.verify(this.password, loginPw)) {
+      let verifiedPw = await argon2.verify(this.password, loginPw);
+      if (verifiedPw) {
         return true;
       } else {
-        console.log("Password does not match");
         return false;
       }
     } catch (err) {
@@ -48,24 +48,22 @@ User.init(
   },
   {
     hooks: {
-      // it works!!! just replicate it
       async beforeCreate(newUserData) {
-        console.log(`THIS PASSWORD IS ${newUserData.password}`);
         try {
-          newUserData.password = await argon2.hash(newUserData.password);
-          console.log(`THIS PASSWORD IS ${newUserData.password}`);
+          newUserData.password = await argon2.hash(newUserData.password, {
+            type: argon2.argon2id,
+          });
           return newUserData;
         } catch (err) {
           console.log(err);
         }
       },
       async beforeUpdate(updatedUserData) {
-        console.log(`THIS PASSWORD IS ${updatedUserData}`);
         try {
           updatedUserData.password = await argon2.hash(
-            updatedUserData.password
+            updatedUserData.password,
+            { type: argon2.argon2id }
           );
-          console.log(`THIS PASSWORD IS ${updatedUserData.password}`);
           return updatedUserData;
         } catch (err) {
           console.log(err);

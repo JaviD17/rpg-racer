@@ -115,11 +115,16 @@ router.post("/login", (req, res) => {
         .json({ message: "No user found with this email address!" });
       return;
     }
-    const validPassword = dbUserData.checkPassword(req.body.password);
-    if (validPassword === false) {
-      res.status(400).json({ message: "Incorrect password" });
-      return;
+    async function checkPw() {
+      const verifiedPw = await dbUserData.checkPassword(req.body.password);
+      //   console.log(verifiedPw);
+      if (!verifiedPw) {
+        res.status(400).json({ message: "Incorrect password" });
+        return;
+      }
     }
+    checkPw();
+
     req.session.save(() => {
       // session variables
       req.session.user_id = dbUserData.id;
