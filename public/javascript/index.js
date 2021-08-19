@@ -29,3 +29,4 @@ const getSearch = function(event) {
 };
 
 searchContainerEl.addEventListener("submit", getSearch);
+
