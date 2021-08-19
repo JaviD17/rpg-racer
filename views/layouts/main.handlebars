@@ -21,10 +21,13 @@
             <nav class="brown">
               <div class="nav-wrapper">
                 <a href="/" class="brand-logo center">Pub Finder</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <ul id="nav-mobile" class="right">
+                    {{#if loggedIn}}
+                    <button id="logout" class="btn-no-style">Logout</button>
+                    {{else}}
                     <li><a href="/login">Login</a></li>
-                    <li><a href="/login">Signup</a></li>
-                    <li><button id="logout" class="btn-no-style">Logout</button></li>
+                    <li><a href="/signup">Signup</a></li>
+                    {{/if}}
                 </ul>
                 
               </div>
@@ -33,7 +36,10 @@
     </header>
 <body>
    {{{body}}} 
+
+   {{#if loggedIn}}
    <script src="/javascript/logout.js"></script>
+   {{/if}}
 </body>
 <!-- social media section -->
 <section class="section section-follow brown darken-2 white-text center">

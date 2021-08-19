@@ -5,7 +5,9 @@ const { User } = require('../models');
 
 router.get('/', (req, res) => {
   //console.log(req.session);
-  res.render('index');
+  res.render('index', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 //login route
@@ -15,6 +17,11 @@ router.get('/login', (req, res) => {
     return;
   }
   res.render('login');
+});
+
+//signup route
+router.get('/signup', (req, res) => {
+  res.render('signup');
 });
 
 router.get('/search-results/:city', (req, res) => {
