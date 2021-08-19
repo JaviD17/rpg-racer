@@ -3,8 +3,16 @@ const sequelize = require("../config/connection");
 const argon2 = require("argon2");
 class User extends Model {
   async checkPassword(loginPw) {
-    let verifiedPassword = await argon2.verify(this.password, loginPw);
-    return verifiedPassword;
+    try {
+      if (await argon2.verify(this.password, loginPw)) {
+        return true;
+      } else {
+        console.log("Password does not match");
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
