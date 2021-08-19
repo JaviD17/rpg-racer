@@ -94,18 +94,6 @@ async function createComment(event) {
             'Content-Type': 'application/json'
         }
     })
-
-
-    console.log(response)
-}
-
-async function loadComments(data) {
-
-    const brewId = data.id;
-
-    const response = await fetch('api/users/comments/' + brewId)
-
-    console.log(response);
 }
 
 generateBreweries();
