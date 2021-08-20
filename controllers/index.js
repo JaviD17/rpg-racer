@@ -5,11 +5,7 @@ const User = require('../models/User.js');
 const Comment = require('../models/Comment.js');
 const Favorite = require('../models/Favorites')
 
-
-router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
-
-
 router.use('/api', apiRoutes);
 
 User.hasMany(Comment, {
