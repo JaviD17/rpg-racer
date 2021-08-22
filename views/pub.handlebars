@@ -17,20 +17,20 @@
 
 
         </div>
-        <form class="new-comment-form">
-    <form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
+  <form class="comment-form">
+    <div>
+      <textarea name="comment-body"></textarea>
+    </div>
 
-  <div>
-    <button type="submit">add comment</button>
-    <button type="button" class="upvote-btn">upvote</button>
-  </div>
-</form>
+    <div>
+      <button type="submit">add comment</button>
+      <button type="button" class="upvote-btn">upvote</button>
+    </div>
   </form>
-</section>
+
+  {{> comments comments}}
 
     </main>
 
     <script src="/javascript/pub.js"></script>
+    <script src="/javascript/comment.js"

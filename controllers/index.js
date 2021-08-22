@@ -8,20 +8,5 @@ const Favorite = require('../models/Favorites')
 router.use('/', homeRoutes);
 router.use('/api', apiRoutes);
 
-User.hasMany(Comment, {
-    foreignKey: 'user_id'
-});
-
-Comment.belongsTo(User, {
-    foreignKey: 'user_id'
-})
-
-User.hasMany(Favorite, {
-    foreignKey: 'user_id'
-})
-
-router.use((req, res) => {
-    res.status(404).end();
-});
 
 module.exports = router;
