@@ -37,13 +37,14 @@ OR
 
 ## Credit
 This app was made with love and hardwork by 
-[Praise Opara](https://github.com/kingopara)
 
-[Emilio Salazar](https://github.com/Emilio-Salazar)
+* [Praise Opara](https://github.com/kingopara)
 
-[Javier Dominguez](https://github.com/JaviD17)
+* [Emilio Salazar](https://github.com/Emilio-Salazar)
 
-[Jonathan Faulkner](https://github.com/JonnyFaulkner)
+* [Javier Dominguez](https://github.com/JaviD17)
+
+* [Jonathan Faulkner](https://github.com/JonnyFaulkner)
 
 ## License
 
