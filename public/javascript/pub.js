@@ -2,13 +2,13 @@ const savebtn = document.querySelector("#save");
 const brewMap = document.querySelector(".map")
 const eventcontEl = document.querySelector(".container");
 
-var getSearchTerm = function () {
-    var queryString = document.location.href;
-    var brewId = queryString.split("b/")[1];
+const getSearchTerm = function () {
+    const queryString = document.location.href;
+    const brewId = queryString.split("b/")[1];
     generateBreweries(brewId);
 };
 
-var generateBreweries = function (brewId) {
+const generateBreweries = function (brewId) {
     var apiUrl = "https://api.openbrewerydb.org/breweries/" + brewId;
     fetch(apiUrl)
         .then(function (response) {
@@ -40,7 +40,7 @@ var generateBreweries = function (brewId) {
     })
 };
 
-var formatPhoneNum = function (PhoneNumber) {
+const formatPhoneNum = function (PhoneNumber) {
     var phoneNum = PhoneNumber.split("", 4)
     console.log(phoneNum)
     if (PhoneNumber === null) {
@@ -83,6 +83,9 @@ var formatPhoneNum = function (PhoneNumber) {
 //     brewMap.appendChild(mapScript)
 // }
 
-
 getSearchTerm();
+
+
+
+
 
